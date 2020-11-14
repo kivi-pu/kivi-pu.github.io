@@ -1,0 +1,2 @@
+(this.webpackJsonppricing=this.webpackJsonppricing||[]).push([[0],{4:function(t,e,n){"use strict";n.r(e);var c=n(2),i=n(0),r=n.n(i),s=n(3);n.n(s).a.render(Object(c.jsx)(r.a.StrictMode,{}),document.getElementById("root"))}},[[4,1,2]]]);
+//# sourceMappingURL=main.92934913.chunk.js.map
