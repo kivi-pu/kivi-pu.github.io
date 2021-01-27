@@ -16,6 +16,7 @@ async function loadProducts() {
   return Array.from(document.getElementsByTagName('product')).map(product => ({
     name: extractProperty(product, 'name'),
     price: extractProperty(product, 'price'),
+    count: extractProperty(product, 'count'),
   }))
 }
 
@@ -38,16 +39,20 @@ function ProductsList() {
             <Table.HeaderCell>Назва</Table.HeaderCell>
 
             <Table.HeaderCell>Ціна</Table.HeaderCell>
+
+            <Table.HeaderCell>Наявність</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           {
-            productResults && productResults.map(({ name, price }, index) => (
+            productResults && productResults.map(({ name, price, count }, index) => (
               <Table.Row key={index}>
                 <Table.Cell>{name}</Table.Cell>
 
                 <Table.Cell>{price} грн</Table.Cell>
+
+                <Table.Cell>{count}</Table.Cell>
               </Table.Row>
             ))
           }
