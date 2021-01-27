@@ -28,8 +28,6 @@ function ProductsList() {
 
   const productResults = (products.fuse && query) ? products.fuse.search(query).map(r => r.item) : products.collection
 
-  const formatter = new Intl.NumberFormat()
-
   return (
     <Segment basic>
       <Input fluid icon='search' onChange={e => setQuery(e.target.value)} />
@@ -49,7 +47,7 @@ function ProductsList() {
               <Table.Row key={index}>
                 <Table.Cell>{name}</Table.Cell>
 
-                <Table.Cell>{formatter.format(price)} грн</Table.Cell>
+                <Table.Cell>{price} грн</Table.Cell>
               </Table.Row>
             ))
           }
