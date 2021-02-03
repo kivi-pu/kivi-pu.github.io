@@ -1,11 +1,11 @@
 import { Product } from './product'
 
 export class Category {
-  name: string
+  names: string[] | undefined
   products: Product[]
 
   constructor(xml: Element) {
-    this.name = xml.getAttribute('name') || ''
+    this.names = xml.getAttribute('name')?.split('/')
     this.products = Array.from(xml.getElementsByTagName('product')).map(e => new Product(e))
   }
 }
