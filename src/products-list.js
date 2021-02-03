@@ -9,7 +9,7 @@ function extractProperty(xml, name) {
 }
 
 async function loadProducts() {
-  const response = await fetch('products.xml')
+  const response = await fetch('https://raw.githubusercontent.com/kivi-pu/products/master/products.xml')
 
   const document = new DOMParser().parseFromString(await response.text(), 'text/xml')
 
