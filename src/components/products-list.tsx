@@ -24,7 +24,7 @@ const ProductsList = () => {
     load().then(categories => {
       setCategories(categories)
 
-      setProducts(categories.map(c => c.products).flat())
+      setProducts(categories.map(c => c.products).flat(), { keys: ['name'] })
     })
     // warning on setter functions missing from deps, that should be safe
     // eslint-disable-next-line
