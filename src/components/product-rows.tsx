@@ -1,11 +1,11 @@
-import { Table } from "semantic-ui-react"
-import { Product } from "../models/product"
+import { Table } from 'semantic-ui-react'
+import { Product } from '../models/product'
 
 interface ProductRowsParams {
   products: Product[]
 }
 
-const ProductRows = ({ products }: ProductRowsParams) => <>
+const ProductRows = ({ products }: ProductRowsParams) => <Table.Body>
   {products.map(({ name, price, count }, index) => (
     <Table.Row key={index}>
       <Table.Cell>{name}</Table.Cell>
@@ -15,6 +15,6 @@ const ProductRows = ({ products }: ProductRowsParams) => <>
       <Table.Cell>{count}</Table.Cell>
     </Table.Row>
   ))}
-</>
+</Table.Body>
 
 export default ProductRows

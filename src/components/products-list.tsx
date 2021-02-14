@@ -46,13 +46,11 @@ const ProductsList = () => {
           </Table.Row>
         </Table.Header>
 
-        <Table.Body>
-          {
-            filteredProducts === undefined
-              ? categories && <CategoryRows categories={categories} />
-              : <ProductRows products={filteredProducts} />
-          }
-        </Table.Body>
+        {
+          filteredProducts === undefined
+            ? categories && <CategoryRows categories={categories} />
+            : <ProductRows products={filteredProducts} />
+        }
       </Table >
     </Segment>
   )
