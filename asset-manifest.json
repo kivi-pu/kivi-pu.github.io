@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.js": "/static/js/main.2cfd9457.chunk.js",
-    "main.js.map": "/static/js/main.2cfd9457.chunk.js.map",
+    "main.js": "/static/js/main.98916d09.chunk.js",
+    "main.js.map": "/static/js/main.98916d09.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.93f1f170.js",
     "runtime-main.js.map": "/static/js/runtime-main.93f1f170.js.map",
     "static/css/2.ac9482f1.chunk.css": "/static/css/2.ac9482f1.chunk.css",
-    "static/js/2.476cbb33.chunk.js": "/static/js/2.476cbb33.chunk.js",
-    "static/js/2.476cbb33.chunk.js.map": "/static/js/2.476cbb33.chunk.js.map",
+    "static/js/2.15b2dfaa.chunk.js": "/static/js/2.15b2dfaa.chunk.js",
+    "static/js/2.15b2dfaa.chunk.js.map": "/static/js/2.15b2dfaa.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.ac9482f1.chunk.css.map": "/static/css/2.ac9482f1.chunk.css.map",
-    "static/js/2.476cbb33.chunk.js.LICENSE.txt": "/static/js/2.476cbb33.chunk.js.LICENSE.txt",
+    "static/js/2.15b2dfaa.chunk.js.LICENSE.txt": "/static/js/2.15b2dfaa.chunk.js.LICENSE.txt",
     "static/media/semantic.min.css": "/static/media/outline-icons.f4f60ace.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.93f1f170.js",
     "static/css/2.ac9482f1.chunk.css",
-    "static/js/2.476cbb33.chunk.js",
-    "static/js/main.2cfd9457.chunk.js"
+    "static/js/2.15b2dfaa.chunk.js",
+    "static/js/main.98916d09.chunk.js"
   ]
 }
