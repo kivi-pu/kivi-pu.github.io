@@ -1,5 +1,5 @@
 import { Table } from 'semantic-ui-react'
-import { Product } from '../models/product'
+import Product from '../models/product'
 
 interface ProductRowsParams {
   products: Product[]

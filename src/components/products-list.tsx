@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { Button, Input, Table, Segment } from 'semantic-ui-react'
 import useSearch from '../hooks/use-search'
 
-import { Category } from '../models/category'
-import { Product } from '../models/product'
+import Category from '../models/category'
+import Product from '../models/product'
 import ProductRows from './product-rows'
 import CategoryRows from './category-rows'
 

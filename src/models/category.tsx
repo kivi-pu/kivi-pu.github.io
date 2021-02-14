@@ -1,6 +1,6 @@
-import { Product } from './product'
+import Product from './product'
 
-export class Category {
+class Category {
   names: string[] | undefined
   products: Product[]
 
@@ -9,3 +9,5 @@ export class Category {
     this.products = Array.from(xml.getElementsByTagName('product')).map(e => new Product(e))
   }
 }
+
+export default Category

@@ -4,7 +4,7 @@ function getXMLTagContent(xml: Element, tagName: string): string {
   return (elems.length >= 1 && elems[0].textContent) || ''
 }
 
-export class Product {
+class Product {
   id: string
   name: string
   price: string
@@ -17,3 +17,5 @@ export class Product {
     this.count = getXMLTagContent(xml, 'count')
   }
 }
+
+export default Product

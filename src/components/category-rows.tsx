@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Breadcrumb, Table } from 'semantic-ui-react'
-import { Category } from '../models/category'
+import Category from '../models/category'
 import ProductRows from './product-rows'
 
 interface CategoryRowsParams {
