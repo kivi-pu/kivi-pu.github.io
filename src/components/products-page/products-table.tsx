@@ -5,7 +5,7 @@ import useSearch from '../../hooks/use-search'
 import Category from '../../models/category'
 import Product from '../../models/product'
 import CategoryRows from './category-rows'
-import ProductRows, { ProductRowElement } from './product-rows'
+import ProductRows from './product-rows'
 
 async function load(): Promise<Category[]> {
   const response = await fetch('https://raw.githubusercontent.com/kivi-pu/products/master/products.xml')
@@ -18,10 +18,9 @@ async function load(): Promise<Category[]> {
 interface ProductsTableProps {
   header: JSX.Element
   isFirebaseLoading: boolean
-  ProductRow: ProductRowElement
 }
 
-const ProductsTable = ({ header, isFirebaseLoading, ProductRow }: ProductsTableProps) => {
+const ProductsTable = ({ header, isFirebaseLoading }: ProductsTableProps) => {
   const [isLoading, setIsLoading] = useState(true)
 
   const [categories, setCategories] = useState<Category[]>()
@@ -54,8 +53,8 @@ const ProductsTable = ({ header, isFirebaseLoading, ProductRow }: ProductsTableP
 
         {
           filteredProducts === undefined
-            ? categories && <CategoryRows categories={categories} ProductRow={ProductRow} />
-            : <ProductRows products={filteredProducts} ProductRow={ProductRow} />
+            ? categories && <CategoryRows categories={categories} />
+            : <ProductRows products={filteredProducts} />
         }
       </Table>
     </Segment>
