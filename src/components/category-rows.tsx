@@ -3,15 +3,15 @@ import { Breadcrumb, Table } from 'semantic-ui-react'
 import Category from '../models/category'
 import ProductRows from './product-rows'
 
-interface CategoryRowsParams {
+interface CategoryRowsProps {
   categories: Category[]
 }
 
-interface CategoryNameParams {
+interface CategoryHeaderProps {
   names: string[]
 }
 
-const CategoryRows = ({ categories }: CategoryRowsParams) => <>
+const CategoryRows = ({ categories }: CategoryRowsProps) => <>
   {categories.map(({ names, products }, index) => (
     <Fragment key={index}>
       {names && <CategoryHeader names={names} />}
@@ -21,7 +21,7 @@ const CategoryRows = ({ categories }: CategoryRowsParams) => <>
   ))}
 </>
 
-const CategoryHeader = ({ names }: CategoryNameParams) => <Table.Header>
+const CategoryHeader = ({ names }: CategoryHeaderProps) => <Table.Header>
   <Table.Row>
     <Table.HeaderCell colSpan={3}>
       <Breadcrumb icon='right angle' sections={names.map(name => ({ key: name, content: name }))} />
