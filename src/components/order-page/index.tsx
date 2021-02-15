@@ -34,7 +34,7 @@ const OrderPage = ({ items, resetOrder }: StateProps & DispatchProps) => {
 
   const history = useHistory()
 
-  if (!isFirebaseLoading && !user)
+  if (!isFirebaseLoading && !user || items.length === 0)
     return <Redirect to='/' />
 
   const handleConfirmOrder = async () => {
