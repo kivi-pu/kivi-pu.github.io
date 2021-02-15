@@ -1,21 +1,26 @@
-import { Table, Label } from 'semantic-ui-react'
-import { connect, MapDispatchToPropsFunction, MapStateToProps } from 'react-redux'
+import { Table, Label, Segment, Menu } from 'semantic-ui-react'
+import { connect, MapStateToProps } from 'react-redux'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { Link } from 'react-router-dom'
 
+import { auth } from '../../firebase-config'
+import { AppState } from '../../store'
+import Order from '../../models/order'
 import { ProductRowElement } from './product-rows'
 import ProductsTable from './products-table'
 import OrderActions from './order-actions'
-import User from '../../models/user'
-import { AppState } from '../../store'
 
 interface StateProps {
-  user: User | undefined
+  order: Order
 }
 
 const mapState: MapStateToProps<StateProps, object, AppState> = state => ({
-  user: state.user,
+  order: state.order,
 })
 
-const ProductsPage = ({ user }: StateProps) => {
+const ProductsPage = ({ order }: StateProps) => {
+  const [user, isLoading] = useAuthState(auth)
+
   const ProductRow: ProductRowElement = ({ product }) => <>
     <Table.Cell>{product.name}</Table.Cell>
 
@@ -40,7 +45,21 @@ const ProductsPage = ({ user }: StateProps) => {
     <Table.HeaderCell>{user ? 'Замовлення' : 'Наявність'}</Table.HeaderCell>
   </>
 
-  return <ProductsTable header={header} ProductRow={ProductRow} />
+  return <>
+    {user && <Menu secondary attached>
+      <Menu.Item onClick={() => auth.signOut()}>
+        Вийти
+      </Menu.Item>
+
+      {Object.keys(order).length > 0 && <Menu.Menu className='right'>
+        <Menu.Item as={(props: any) => <Link to='/order' {...props} />}>
+          Перейти до замовлення
+        </Menu.Item>
+      </Menu.Menu>}
+    </Menu>}
+
+    <ProductsTable header={header} ProductRow={ProductRow} isFirebaseLoading={isLoading} />
+  </>
 }
 
 export default connect(mapState)(ProductsPage)

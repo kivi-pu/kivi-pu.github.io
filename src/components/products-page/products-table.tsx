@@ -17,10 +17,13 @@ async function load(): Promise<Category[]> {
 
 interface ProductsTableProps {
   header: JSX.Element
+  isFirebaseLoading: boolean
   ProductRow: ProductRowElement
 }
 
-const ProductsTable = ({ header, ProductRow }: ProductsTableProps) => {
+const ProductsTable = ({ header, isFirebaseLoading, ProductRow }: ProductsTableProps) => {
+  const [isLoading, setIsLoading] = useState(true)
+
   const [categories, setCategories] = useState<Category[]>()
 
   const [filteredProducts, setProducts, query, setQuery] = useSearch<Product>()
@@ -30,13 +33,15 @@ const ProductsTable = ({ header, ProductRow }: ProductsTableProps) => {
       setCategories(categories)
 
       setProducts(categories.map(c => c.products).flat(), { keys: ['name'] })
+
+      setIsLoading(false)
     })
     // warning on setter functions missing from deps, that should be safe
     // eslint-disable-next-line
   }, [])
 
   return (
-    <Segment basic>
+    <Segment basic attached loading={isLoading || isFirebaseLoading}>
       <Input fluid icon='search' iconPosition='left' value={query} onChange={e => setQuery(e.target.value)}
         action={<Button basic icon='delete' onClick={() => setQuery('')} />} />
 

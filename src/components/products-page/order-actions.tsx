@@ -26,8 +26,6 @@ const mapDispatch: MapDispatchToPropsFunction<DispatchProps, OwnProps> = (dispat
 })
 
 const OrderActions = ({ amount, setOrderAmount }: OwnProps & StateProps & DispatchProps) => {
-  console.log('render OrderActions', amount)
-
   const [value, setValue] = useState<string>()
 
   if (amount === 0 && value === undefined)
@@ -37,7 +35,7 @@ const OrderActions = ({ amount, setOrderAmount }: OwnProps & StateProps & Dispat
     <Button size='mini' compact basic icon='plus' onClick={() => setOrderAmount(amount + 1)} />
 
     <Input size='mini' value={value === undefined ? amount : value}
-      onChange={e => { console.log('change'); setValue(e.target.value) }}
+      onChange={e => setValue(e.target.value)}
       onBlur={() => {
         if (value === undefined)
           return
