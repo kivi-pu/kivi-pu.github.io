@@ -24,7 +24,7 @@ async function load(uid: string): Promise<OrderRecord[]> {
   return await Promise.all(results)
 }
 
-const ProductsTable = () => {
+const OrderHistoryPage = () => {
   const [user, isFirebaseLoading] = useAuthState(auth)
 
   const [records, setRecords] = useState<OrderRecord[]>([])
@@ -98,6 +98,4 @@ const ProductsTable = () => {
   )
 }
 
-export default ProductsTable
-
-export const { HeaderCell, Row, Cell } = Table
+export default OrderHistoryPage

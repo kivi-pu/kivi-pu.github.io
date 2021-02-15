@@ -62,5 +62,3 @@ const ProductsTable = ({ header, isFirebaseLoading }: ProductsTableProps) => {
 }
 
 export default ProductsTable
-
-export const { HeaderCell, Row, Cell } = Table
