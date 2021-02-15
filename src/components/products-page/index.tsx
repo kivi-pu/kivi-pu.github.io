@@ -35,13 +35,22 @@ const ProductsPage = ({ order }: StateProps) => {
         Вийти
       </Menu.Item>
 
-      {Object.keys(order).length > 0 && <Menu.Menu className='right'>
-        <Menu.Item as={(props: any) => <Link to='/order' {...props} />}>
-          <Icon name='shop' />
+      <Menu.Menu className='right'>
+        {
+          Object.keys(order).length > 0 &&
+          <Menu.Item as={(props: any) => <Link to='/order' {...props} />}>
+            <Icon name='shop' />
 
-          Перейти до замовлення
+            Перейти до замовлення
+          </Menu.Item>
+        }
+
+        <Menu.Item as={(props: any) => <Link to='/orders' {...props} />}>
+          <Icon name='history' />
+
+          Історія замовлень
         </Menu.Item>
-      </Menu.Menu>}
+      </Menu.Menu>
     </Menu>}
 
     <ProductsTable header={header} isFirebaseLoading={isLoading} />

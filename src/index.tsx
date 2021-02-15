@@ -7,6 +7,7 @@ import 'fomantic-ui-css/semantic.min.css'
 import ProductsPage from './components/products-page'
 import SignInPage from './components/sign-in-page'
 import OrderPage from './components/order-page'
+import OrderHistoryPage from './components/order-history-page'
 import store from './store'
 import './index.css'
 
@@ -17,6 +18,8 @@ ReactDOM.render(
         <Route exact path='/signin' component={SignInPage} />
 
         <Route exact path='/order' component={OrderPage} />
+
+        <Route exact path='/orders' component={OrderHistoryPage} />
 
         <Route exact path='/' component={ProductsPage} />
       </BrowserRouter>
