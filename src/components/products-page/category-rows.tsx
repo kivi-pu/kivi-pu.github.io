@@ -1,22 +1,23 @@
 import { Fragment } from 'react'
 import { Breadcrumb, Table } from 'semantic-ui-react'
-import Category from '../models/category'
-import ProductRows from './product-rows'
+import Category from '../../models/category'
+import ProductRows, { ProductRowElement } from './product-rows'
 
 interface CategoryRowsProps {
   categories: Category[]
+  ProductRow: ProductRowElement
 }
 
 interface CategoryHeaderProps {
   names: string[]
 }
 
-const CategoryRows = ({ categories }: CategoryRowsProps) => <>
+const CategoryRows = ({ categories, ProductRow }: CategoryRowsProps) => <>
   {categories.map(({ names, products }, index) => (
     <Fragment key={index}>
       {names && <CategoryHeader names={names} />}
 
-      <ProductRows products={products} />
+      <ProductRows products={products} ProductRow={ProductRow} />
     </Fragment>
   ))}
 </>

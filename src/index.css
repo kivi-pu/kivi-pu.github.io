@@ -22,6 +22,14 @@
   margin-right: 2.283px;
 }
 
+.product-row-actions > .ui.yellow.label {
+  padding: 0 18px;
+}
+
+.product-row-actions > .ui.green.label {
+  padding: 0 16px;
+}
+
 .ui.table td.single.line {
   vertical-align: baseline;
 }

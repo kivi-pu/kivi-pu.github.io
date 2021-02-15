@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Button, Input } from 'semantic-ui-react'
 import { connect, MapDispatchToPropsFunction, MapStateToProps } from 'react-redux'
 
-import { AppState, UpdateOrderAction, UPDATE_ORDER } from '../store'
-import Product from '../models/product'
+import { AppState, UpdateOrderAction, UPDATE_ORDER } from '../../store'
+import Product from '../../models/product'
 
 interface OwnProps {
   product: Product
