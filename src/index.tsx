@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import 'fomantic-ui-css/semantic.min.css'
 
@@ -14,7 +14,7 @@ import './index.css'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <Route exact path='/signin' component={SignInPage} />
 
         <Route exact path='/order' component={OrderPage} />
@@ -22,7 +22,7 @@ ReactDOM.render(
         <Route exact path='/orders' component={OrderHistoryPage} />
 
         <Route exact path='/' component={ProductsPage} />
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
