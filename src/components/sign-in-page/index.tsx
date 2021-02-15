@@ -43,7 +43,7 @@ const SignInPage = () => {
 
             <Form.Input type='password' placeholder='Пароль' icon='lock' iconPosition='left' value={password} onChange={e => setPassword(e.target.value)} />
 
-            <Form.Button content='Увійти' fluid />
+            <Form.Button icon='sign in' content='Увійти' fluid />
           </Segment>
         </Form>
       </Grid.Column>

@@ -1,4 +1,4 @@
-import { Table, Menu } from 'semantic-ui-react'
+import { Table, Menu, Icon } from 'semantic-ui-react'
 import { connect, MapStateToProps } from 'react-redux'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Link } from 'react-router-dom'
@@ -30,11 +30,15 @@ const ProductsPage = ({ order }: StateProps) => {
   return <>
     {user && <Menu secondary attached>
       <Menu.Item onClick={() => auth.signOut()}>
+        <Icon name='sign out' />
+
         Вийти
       </Menu.Item>
 
       {Object.keys(order).length > 0 && <Menu.Menu className='right'>
         <Menu.Item as={(props: any) => <Link to='/order' {...props} />}>
+          <Icon name='shop' />
+
           Перейти до замовлення
         </Menu.Item>
       </Menu.Menu>}
