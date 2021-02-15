@@ -31,14 +31,18 @@ const ProductsTable = () => {
 
   const [isLoading, setIsLoading] = useState(true)
 
+  const [error, setError] = useState<string>()
+
   useEffect(() => {
     if (!user) return
 
     load(user.uid).then(records => {
       setRecords(records)
 
+      setError(undefined)
+
       setIsLoading(false)
-    })
+    }).catch(e => setError(e.message))
     // warning on setter functions missing from deps, that should be safe
     // eslint-disable-next-line
   }, [user])
@@ -57,6 +61,8 @@ const ProductsTable = () => {
       </Menu>
 
       <Segment basic attached loading={isLoading || isFirebaseLoading}>
+        {error && <Message error content={error} />}
+
         {records.length === 0
           ? <Message info content='У вас ще немає замовлень' />
           : <Table unstackable compact='very'>
