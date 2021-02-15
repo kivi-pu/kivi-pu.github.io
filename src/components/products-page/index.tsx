@@ -37,7 +37,7 @@ const ProductsPage = ({ order }: StateProps) => {
 
       <Menu.Menu className='right'>
         {
-          Object.keys(order).length > 0 &&
+          Object.values(order).filter(x => x && x.amount > 0).length > 0 &&
           <Menu.Item as={(props: any) => <Link to='/order' {...props} />}>
             <Icon name='shop' />
 
