@@ -1,6 +1,6 @@
 import Product from './product'
 
-interface OrderItem {
+export interface OrderItem {
   product: Product
   amount: number
 }
