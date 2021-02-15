@@ -42,7 +42,11 @@ const OrderHistoryPage = () => {
       setError(undefined)
 
       setIsLoading(false)
-    }).catch(e => setError(e.message))
+    }).catch(e => {
+      setError(e.message)
+
+      setIsLoading(false)
+    })
     // warning on setter functions missing from deps, that should be safe
     // eslint-disable-next-line
   }, [user])
