@@ -33,3 +33,11 @@
 .ui.table td.single.line {
   vertical-align: baseline;
 }
+
+.sign-in-page {
+  height: 100vh;
+}
+
+.sign-in-page .column {
+  max-width: 450px;
+}
