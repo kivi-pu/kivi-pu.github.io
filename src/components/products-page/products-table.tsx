@@ -30,11 +30,13 @@ const ProductsTable = ({ header, isFirebaseLoading }: ProductsTableProps) => {
 
   useEffect(() => {
     load().then(products => {
-      const categories = groupBy(products, p => p.category).map(([name, products]) => new Category(name, products))
+      const categories = groupBy(products, p => p.category)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([name, products]) => new Category(name, products))
 
       setCategories(categories)
 
-      setProducts(products, { keys: ['name'] })
+      setProducts(products.sort((a, b) => a.name.localeCompare(b.name)), { keys: ['name'] })
 
       setIsLoading(false)
     })
