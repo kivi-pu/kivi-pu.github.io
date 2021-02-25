@@ -12,11 +12,11 @@ interface CategoryHeaderProps {
 }
 
 const CategoryRows = ({ categories }: CategoryRowsProps) => <>
-  {categories.map(({ names, products }, index) => (
+  {categories.map((category, index) => (
     <Fragment key={index}>
-      {names && <CategoryHeader names={names} />}
+      {category.present() && <CategoryHeader names={category.names} />}
 
-      <ProductRows products={products} />
+      <ProductRows products={category.products} />
     </Fragment>
   ))}
 </>

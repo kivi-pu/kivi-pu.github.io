@@ -1,12 +1,16 @@
 import Product from './product'
 
 class Category {
-  names: string[] | undefined
+  names: string[]
   products: Product[]
 
-  constructor(xml: Element) {
-    this.names = xml.getAttribute('name')?.split('/')
-    this.products = Array.from(xml.getElementsByTagName('product')).map(e => new Product(e))
+  constructor(name: string, products: Product[]) {
+    this.names = name.split('/')
+    this.products = products
+  }
+
+  present() {
+    return !(this.names.length === 1 && this.names[0] === '')
   }
 }
 
