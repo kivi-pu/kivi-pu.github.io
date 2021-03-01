@@ -18,12 +18,11 @@ async function load(): Promise<Product[]> {
 }
 
 interface ProductsTableProps {
-  header: JSX.Element
   isFirebaseLoading: boolean
   isLoggedIn: boolean
 }
 
-const ProductsTable = ({ header, isFirebaseLoading, isLoggedIn }: ProductsTableProps) => {
+const ProductsTable = ({ isFirebaseLoading, isLoggedIn }: ProductsTableProps) => {
   const [isLoading, setIsLoading] = useState(true)
 
   const [categories, setCategories] = useState<Category[]>()
@@ -56,7 +55,11 @@ const ProductsTable = ({ header, isFirebaseLoading, isLoggedIn }: ProductsTableP
       <Table unstackable compact='very'>
         <Table.Header>
           <Table.Row>
-            {header}
+            <Table.HeaderCell>Назва</Table.HeaderCell>
+
+            <Table.HeaderCell>Ціна</Table.HeaderCell>
+
+            <Table.HeaderCell>{isLoggedIn ? 'Замовлення' : 'Наявність'}</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 

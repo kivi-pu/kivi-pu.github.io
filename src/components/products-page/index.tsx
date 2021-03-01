@@ -19,18 +19,10 @@ const mapState: MapStateToProps<StateProps, object, AppState> = state => ({
 const ProductsPage = ({ order }: StateProps) => {
   const [user, isLoading] = useAuthState(auth)
 
-  const header = <>
-    <Table.HeaderCell>Назва</Table.HeaderCell>
-
-    <Table.HeaderCell>Ціна</Table.HeaderCell>
-
-    <Table.HeaderCell>{user ? 'Замовлення' : 'Наявність'}</Table.HeaderCell>
-  </>
-
   return <>
     <Menu isLoggedIn={!!user} hasOrder={Object.values(order).filter(x => x && x.amount > 0).length > 0} />
 
-    <ProductsTable header={header} isFirebaseLoading={isLoading} isLoggedIn={!!user} />
+    <ProductsTable isFirebaseLoading={isLoading} isLoggedIn={!!user} />
   </>
 }
 
