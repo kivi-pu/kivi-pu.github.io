@@ -1,4 +1,4 @@
-.ui.segment.products-table-segment {
+.ui.segment.products-page-segment {
   border: none;
   width: 100%;
   max-width: 1440px;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .ui.segment.products-table-segment {
+  .ui.segment.products-page-segment {
     padding-left: 0;
     padding-right: 0;
   }
