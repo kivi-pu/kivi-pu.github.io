@@ -41,11 +41,9 @@ const OrderPage = ({ items, resetOrder }: StateProps & DispatchProps) => {
     setIsLoading(true)
 
     try {
-      const doc = await firestore.collection('orders').add({ uid: user.uid, date: new Date() })
+      const products = items.map(({ product: { id, name }, amount }) => JSON.stringify({ id, name, amount }))
 
-      await Promise.all(items.map(({ product: { id, name }, amount }) => {
-        return doc.collection('products').add({ id, name, amount })
-      }))
+      await firestore.collection('orders').add({ uid: user.uid, date: new Date(), products })
 
       setError(undefined)
 

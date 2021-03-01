@@ -13,15 +13,10 @@ interface OrderRecord {
 async function load(uid: string): Promise<OrderRecord[]> {
   const response = await firestore.collection('orders').where('uid', '==', uid).orderBy('date', 'desc').get()
 
-  const results = response.docs.map(async x => {
-    const productsResponse = await x.ref.collection('products').get()
-
-    const products = productsResponse.docs.map(p => ({ name: p.get('name'), amount: p.get('amount') }))
-
-    return { date: x.get('date').toDate(), products }
-  })
-
-  return await Promise.all(results)
+  return response.docs.map(x => ({
+    date: x.get('date').toDate(),
+    products: x.get('products').map((p: string) => JSON.parse(p))
+  }))
 }
 
 const OrderHistoryPage = () => {
