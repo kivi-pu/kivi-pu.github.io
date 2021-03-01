@@ -15,7 +15,7 @@ const ProductRows = ({ products }: ProductRowsProps) => {
     <Table.Body>
       {products.map((product, index) => (
         <Table.Row key={index}>
-          <Table.Cell>{product.name}</Table.Cell>
+          <Table.Cell className="product-row-name">{product.name}</Table.Cell>
 
           <Table.Cell singleLine>{product.price} грн</Table.Cell>
 

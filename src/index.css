@@ -1,3 +1,21 @@
+.ui.segment.products-table-segment {
+  border: none;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .ui.segment.products-table-segment {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.product-row-name {
+  overflow-wrap: anywhere;
+}
+
 .product-row-actions {
   display: flex;
   align-items: center;

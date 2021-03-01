@@ -45,7 +45,7 @@ const ProductsTable = ({ header, isFirebaseLoading }: ProductsTableProps) => {
   }, [])
 
   return (
-    <Segment basic attached loading={isLoading || isFirebaseLoading}>
+    <Segment basic attached loading={isLoading || isFirebaseLoading} className='products-table-segment'>
       <Input fluid icon='search' iconPosition='left' value={query} onChange={e => setQuery(e.target.value)}
         action={<Button basic icon='delete' onClick={() => setQuery('')} />} />
 
