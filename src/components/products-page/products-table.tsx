@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Segment, Table } from 'semantic-ui-react'
+import { connect, MapDispatchToPropsFunction, MapStateToProps } from 'react-redux'
+import Fuse from 'fuse.js'
 
-import { groupBy } from '../../helpers'
+import { AppState, SetDataAction, SET_DATA } from '../../store'
 import useSearch from '../../hooks/use-search'
 import Category from '../../models/category'
 import Product from '../../models/product'
@@ -17,30 +19,45 @@ async function load(): Promise<Product[]> {
   return Array.from(document.getElementsByTagName('product')).map(e => new Product(e))
 }
 
-interface ProductsTableProps {
+interface OwnProps {
   isFirebaseLoading: boolean
   isLoggedIn: boolean
 }
 
-const ProductsTable = ({ isFirebaseLoading, isLoggedIn }: ProductsTableProps) => {
-  const [isLoading, setIsLoading] = useState(true)
+interface StateProps {
+  fuse?: Fuse<Product>
+  categories?: Category[]
+}
 
-  const [categories, setCategories] = useState<Category[]>()
+interface DispatchProps {
+  setData: (products: Product[]) => SetDataAction
+}
 
-  const [filteredProducts, setProducts, runQuery] = useSearch<Product>()
+const mapState: MapStateToProps<StateProps, OwnProps, AppState> = state => state
+
+const mapDispatch: MapDispatchToPropsFunction<DispatchProps, OwnProps> = dispatch => ({
+  setData: products => dispatch({ type: SET_DATA, products })
+})
+
+const ProductsTable = (
+  {
+    isFirebaseLoading,
+    isLoggedIn,
+    fuse,
+    categories,
+    setData
+  }: OwnProps & StateProps & DispatchProps
+) => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const [filteredProducts, runQuery] = useSearch<Product>(fuse)
 
   useEffect(() => {
-    load().then(products => {
-      const categories = groupBy(products, p => p.category)
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([name, products]) => new Category(name, products))
+    if (!categories || !fuse) {
+      setIsLoading(true)
 
-      setCategories(categories)
-
-      setProducts(products.sort((a, b) => a.name.localeCompare(b.name)), { keys: ['name'] })
-
-      setIsLoading(false)
-    })
+      load().then(products => { setData(products); setIsLoading(false) })
+    }
     // warning on setter functions missing from deps, that should be safe
     // eslint-disable-next-line
   }, [])
@@ -73,4 +90,4 @@ const ProductsTable = ({ isFirebaseLoading, isLoggedIn }: ProductsTableProps) =>
   )
 }
 
-export default ProductsTable
+export default connect(mapState, mapDispatch)(ProductsTable)

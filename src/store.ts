@@ -1,7 +1,11 @@
 import { Action, createStore } from 'redux'
 import { devToolsEnhancer } from 'redux-devtools-extension'
+import Fuse from 'fuse.js'
+
+import { groupBy } from './helpers'
 import Order from './models/order'
 import Product from './models/product'
+import Category from './models/category'
 
 export const UPDATE_ORDER = 'UPDATE_ORDER'
 
@@ -14,10 +18,18 @@ export const RESET_ORDER = 'RESET_ORDER'
 
 export interface ResetOrderAction extends Action<typeof RESET_ORDER> {}
 
-type AppAction = UpdateOrderAction | ResetOrderAction
+export const SET_DATA = 'SET_DATA'
+
+export interface SetDataAction extends Action<typeof SET_DATA> {
+  products: Product[]
+}
+
+type AppAction = UpdateOrderAction | ResetOrderAction | SetDataAction
 
 export interface AppState {
   order: Order
+  fuse?: Fuse<Product>
+  categories?: Category[]
 }
 
 const initialState: AppState = {
@@ -33,6 +45,15 @@ const reducer = (state = initialState, action: AppAction) => {
 
     case RESET_ORDER:
       return { ...state, order: {} }
+
+    case SET_DATA:
+      const fuse = new Fuse(action.products, { keys: ['name'] })
+
+      const categories = groupBy(action.products, p => p.category)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([name, products]) => new Category(name, products))
+
+      return { ...state, fuse, categories }
 
     default:
       return state
