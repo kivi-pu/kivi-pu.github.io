@@ -1,12 +1,12 @@
-import { Table, Menu, Icon } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 import { connect, MapStateToProps } from 'react-redux'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { Link } from 'react-router-dom'
 
 import { auth } from '../../firebase-config'
 import { AppState } from '../../store'
 import Order from '../../models/order'
 import ProductsTable from './products-table'
+import Menu from './menu'
 
 interface StateProps {
   order: Order
@@ -28,32 +28,9 @@ const ProductsPage = ({ order }: StateProps) => {
   </>
 
   return <>
-    {user && <Menu secondary attached>
-      <Menu.Item onClick={() => auth.signOut()}>
-        <Icon name='sign out' />
+    <Menu isLoggedIn={!!user} hasOrder={Object.values(order).filter(x => x && x.amount > 0).length > 0} />
 
-        Вийти
-      </Menu.Item>
-
-      <Menu.Menu className='right'>
-        {
-          Object.values(order).filter(x => x && x.amount > 0).length > 0 &&
-          <Menu.Item as={(props: any) => <Link to='/order' {...props} />}>
-            <Icon name='shop' />
-
-            Перейти до замовлення
-          </Menu.Item>
-        }
-
-        <Menu.Item as={(props: any) => <Link to='/orders' {...props} />}>
-          <Icon name='history' />
-
-          Історія замовлень
-        </Menu.Item>
-      </Menu.Menu>
-    </Menu>}
-
-    <ProductsTable header={header} isFirebaseLoading={isLoading} />
+    <ProductsTable header={header} isFirebaseLoading={isLoading} isLoggedIn={!!user} />
   </>
 }
 

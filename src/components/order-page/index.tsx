@@ -74,7 +74,7 @@ const OrderPage = ({ items, resetOrder }: StateProps & DispatchProps) => {
           </Table.Row>
         </Table.Header>
 
-        <ProductRows products={items.map(x => x.product)} />
+        <ProductRows products={items.map(x => x.product)} isLoggedIn />
       </Table>
 
       <Button.Group fluid>

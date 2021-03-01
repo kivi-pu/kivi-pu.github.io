@@ -5,18 +5,19 @@ import ProductRows from './product-rows'
 
 interface CategoryRowsProps {
   categories: Category[]
+  isLoggedIn: boolean
 }
 
 interface CategoryHeaderProps {
   names: string[]
 }
 
-const CategoryRows = ({ categories }: CategoryRowsProps) => <>
+const CategoryRows = ({ categories, isLoggedIn }: CategoryRowsProps) => <>
   {categories.map((category, index) => (
     <Fragment key={index}>
       {category.present() && <CategoryHeader names={category.names} />}
 
-      <ProductRows products={category.products} />
+      <ProductRows products={category.products} isLoggedIn={isLoggedIn} />
     </Fragment>
   ))}
 </>
