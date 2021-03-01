@@ -1,15 +1,29 @@
-.ui.segment.products-page-segment {
-  border: none;
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-@media screen and (max-width: 768px) {
-  .ui.segment.products-page-segment {
-    padding-left: 0;
-    padding-right: 0;
-  }
+#root > .ui.segment {
+  width: 100%;
+  max-width: 1440px;
+  border: none;
+  padding-bottom: 0;
+}
+
+#root > .products {
+  flex: 1;
+  padding-top: 0px;
+}
+
+.products-border {
+  border-bottom: 1px solid rgba(34,36,38,.1);
+  border-radius: .28571429rem;
+}
+
+.ui.menu {
+  overflow: hidden;
 }
 
 .product-row-name {
@@ -37,7 +51,6 @@
 .product-row-actions > .ui.label {
   line-height: 23.9667px;
   padding: 0 18px;
-  margin-right: 2.283px;
 }
 
 .product-row-actions > .ui.yellow.label {
@@ -48,14 +61,84 @@
   padding: 0 16px;
 }
 
-.ui.table td.single.line {
-  vertical-align: baseline;
-}
-
 .sign-in-page {
   height: 100vh;
 }
 
 .sign-in-page .column {
   max-width: 450px;
+}
+
+.list-header, .list-item {
+  overflow: hidden;
+}
+
+.list-header, .list-item.category {
+  background: #f9fafb;
+  font-weight: 700;
+  border: 1px solid rgba(34,36,38,.1);
+}
+
+.list-header > div {
+  padding: .92857143em .6em;
+}
+
+.list-header {
+  border-radius: .28571429rem 0 0 0;
+  display: grid;
+  grid-template-columns: 1fr minmax(92px, 13.4042553%) minmax(121px, 28.5815603%);
+}
+
+.list-item.category {
+  border-top: none;
+}
+
+.list-item.product {
+  display: grid;
+  grid-template-columns: 1fr minmax(92px, 13.4042553%) minmax(121px, 28.5815603%);
+  align-items: baseline;
+  border: 1px solid rgba(34,36,38,.1);
+  border-top: none;
+}
+
+.list-item.product > div, .list-item.category {
+  padding: .4em .6em;
+}
+
+@media screen and (max-width: 600px) {
+  .list-item.product {
+    grid-template-columns: 1fr 68px 52px;
+  }
+
+  .list-header {
+    grid-template-columns: 1fr min-content min-content;
+  }
+
+  .list-item.product > div, .list-item.category {
+    padding: .2em .3em;
+  }
+
+  .product-row-actions > .ui.label {
+    padding: 0 16px !important;
+  }
+
+  .product-row-actions > .ui.label .icon {
+    margin-right: 0 !important;
+  }
+
+  .product-row-actions {
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .product-row-actions > * {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  #root > .ui.segment {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

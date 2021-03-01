@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 import { auth, firestore } from '../../firebase-config'
 import { AppState, ResetOrderAction, RESET_ORDER } from '../../store'
-import ProductRows from '../products-page/product-rows'
+import ProductRow from '../products-page/product-row'
 import { OrderItem } from '../../models/order'
 
 interface StateProps {
@@ -57,31 +57,32 @@ const OrderPage = ({ items, resetOrder }: StateProps & DispatchProps) => {
     setIsLoading(false)
   }
 
-  return (
-    <Segment basic loading={isLoading || isFirebaseLoading}>
-      {error && <Message error content={error} />}
+  if (isLoading || isFirebaseLoading)
+    return <Segment basic attached loading />
 
-      <Table unstackable compact='very'>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Назва</Table.HeaderCell>
+  return <>
+    {error && <Segment basic attached><Message error content={error} /></Segment>}
 
-            <Table.HeaderCell>Ціна</Table.HeaderCell>
+    <Segment basic attached>
+      <div className='list-header'>
+        <div>Назва</div>
 
-            <Table.HeaderCell>Замовлення</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+        <div>Ціна</div>
 
-        <ProductRows products={items.map(x => x.product)} isLoggedIn />
-      </Table>
+        <div>Замовлення</div>
+      </div>
 
+      {items.map(({ product }) => <ProductRow key={product.id} product={product} isLoggedIn />)}
+    </Segment>
+
+    <Segment basic attached>
       <Button.Group fluid>
         <Button basic negative icon='arrow left' content='Назад' as={(props: any) => <Link to='/' {...props} />} />
 
         <Button basic positive icon='shop' content='Підтвердити замовлення' onClick={handleConfirmOrder} />
       </Button.Group>
     </Segment>
-  )
+  </>
 }
 
 export default connect(mapState, mapDispatch)(OrderPage)

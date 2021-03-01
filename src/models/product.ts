@@ -1,3 +1,5 @@
+import ListItem from './list-item'
+
 function getXMLTagContent(xml: Element, tagName: string): string {
   const elems = xml.getElementsByTagName(tagName)
 
@@ -5,11 +7,11 @@ function getXMLTagContent(xml: Element, tagName: string): string {
 }
 
 class Product {
-  id: string
-  name: string
-  price: string
-  count: string
-  category: string
+  readonly id: string
+  readonly name: string
+  readonly price: string
+  readonly count: string
+  readonly category: string
 
   constructor(xml: Element) {
     this.id = getXMLTagContent(xml, 'code')
@@ -17,6 +19,14 @@ class Product {
     this.price = getXMLTagContent(xml, 'price')
     this.count = getXMLTagContent(xml, 'count')
     this.category = getXMLTagContent(xml, 'category')
+  }
+
+  toItem(): ListItem {
+    return { type: 'product', value: this }
+  }
+
+  get key() {
+    return this.id
   }
 }
 

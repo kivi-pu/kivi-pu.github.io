@@ -56,16 +56,26 @@ const ProductsPage = ({ order, fuse, categories, setData }: StateProps & Dispatc
   }, [])
 
   if (isDataLoading || isFirebaseLoading)
-    return <Segment basic attached loading className='products-page-segment' />
+    return <Segment basic attached loading />
 
   return <>
     <Menu isLoggedIn={!!user} hasOrder={Object.values(order).filter(x => x && x.amount > 0).length > 0} />
 
-    <Segment basic attached className='products-page-segment'>
+    <Segment basic attached>
       <ProductsSearchInput onSearch={runQuery} />
-
-      <ProductsTable isLoggedIn={!!user} categories={categories} filteredProducts={filteredProducts} />
     </Segment>
+
+    <Segment basic attached>
+      <div className='list-header'>
+        <div>Назва</div>
+
+        <div>Ціна</div>
+
+        <div>{user ? 'Замовлення' : 'Наявність'}</div>
+      </div>
+    </Segment>
+
+    <ProductsTable isLoggedIn={!!user} categories={categories} filteredProducts={filteredProducts} />
   </>
 }
 
