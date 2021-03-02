@@ -76,6 +76,7 @@
 
 .sign-in-page {
   height: 100vh;
+  width: 100vw;
 }
 
 .sign-in-page .column {
