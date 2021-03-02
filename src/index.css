@@ -12,14 +12,19 @@
   padding-bottom: 0;
 }
 
+#root > .ui.loading.segment:only-child {
+  max-width: none;
+  flex: 1;
+}
+
 #root > .products {
   flex: 1;
   padding-top: 0px;
 }
 
 .products-border {
-  border-bottom: 1px solid rgba(34,36,38,.1);
-  border-radius: .28571429rem;
+  border-bottom: 1px solid rgba(34, 36, 38, 0.1);
+  border-radius: 0.28571429rem;
 }
 
 .ui.menu {
@@ -46,6 +51,14 @@
 
 .product-row-actions > .ui.input input {
   text-align: center;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.product-row-actions > .ui.input input::-webkit-inner-spin-button,
+.product-row-actions > .ui.input input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
 }
 
 .product-row-actions > .ui.label {
@@ -69,22 +82,24 @@
   max-width: 450px;
 }
 
-.list-header, .list-item {
+.list-header,
+.list-item {
   overflow: hidden;
 }
 
-.list-header, .list-item.category {
+.list-header,
+.list-item.category {
   background: #f9fafb;
   font-weight: 700;
-  border: 1px solid rgba(34,36,38,.1);
+  border: 1px solid rgba(34, 36, 38, 0.1);
 }
 
 .list-header > div {
-  padding: .92857143em .6em;
+  padding: 0.92857143em 0.6em;
 }
 
 .list-header {
-  border-radius: .28571429rem 0 0 0;
+  border-radius: 0.28571429rem 0 0 0;
   display: grid;
   grid-template-columns: 1fr minmax(92px, 13.4042553%) minmax(121px, 28.5815603%);
 }
@@ -97,12 +112,13 @@
   display: grid;
   grid-template-columns: 1fr minmax(92px, 13.4042553%) minmax(121px, 28.5815603%);
   align-items: baseline;
-  border: 1px solid rgba(34,36,38,.1);
+  border: 1px solid rgba(34, 36, 38, 0.1);
   border-top: none;
 }
 
-.list-item.product > div, .list-item.category {
-  padding: .4em .6em;
+.list-item.product > div,
+.list-item.category {
+  padding: 0.4em 0.6em;
 }
 
 @media screen and (max-width: 600px) {
@@ -114,8 +130,9 @@
     grid-template-columns: 1fr min-content min-content;
   }
 
-  .list-item.product > div, .list-item.category {
-    padding: .2em .3em;
+  .list-item.product > div,
+  .list-item.category {
+    padding: 0.2em 0.3em;
   }
 
   .product-row-actions > .ui.label {

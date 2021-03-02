@@ -34,7 +34,7 @@ const OrderActions = ({ amount, setOrderAmount }: OwnProps & StateProps & Dispat
   return <>
     <Button size='mini' compact basic icon='plus' onClick={() => setOrderAmount(amount + 1)} />
 
-    <Input size='mini' value={value === undefined ? amount : value}
+    <Input size='mini' type='number' value={value === undefined ? amount : value}
       onChange={e => setValue(e.target.value)}
       onBlur={() => {
         if (value === undefined)

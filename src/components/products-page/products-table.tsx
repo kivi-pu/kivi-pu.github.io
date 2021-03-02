@@ -1,7 +1,6 @@
-import { memo } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import { FixedSizeList, areEqual } from 'react-window'
 import { Segment } from 'semantic-ui-react'
-import AutoSizer from 'react-virtualized-auto-sizer'
 
 import useWindowSize from '../../hooks/use-window-size'
 import Category from '../../models/category'
@@ -16,53 +15,66 @@ interface ProductsTableProps {
   filteredProducts?: Product[]
 }
 
+interface MemoisedListProps {
+  height: number
+  windowWidth: number
+  isLoggedIn: boolean
+  items: ListItem[]
+}
+
+const MemoisedList = memo(({ height, windowWidth, isLoggedIn, items }: MemoisedListProps) => (
+  <FixedSizeList
+    width='100%'
+    height={height}
+    itemCount={items.length}
+    itemSize={
+      (isLoggedIn && windowWidth <= 600)
+        || windowWidth <= 340
+        ? 84
+        : windowWidth <= 425
+          ? 71
+          : windowWidth <= 1024 ? 52 : 35
+    }
+    itemKey={index => items[index].value.key}
+    overscanCount={5}
+    className='products-border'
+  >
+    {memo(({ index, style }) => {
+      const item = items[index]
+
+      return item.type === 'category'
+        ? <CategoryRow style={style} category={item.value} />
+        : <ProductRow style={style} isLoggedIn={isLoggedIn} product={item.value} />
+    }, areEqual)}
+  </FixedSizeList>
+))
+
 const ProductsTable = ({ isLoggedIn, categories, filteredProducts }: ProductsTableProps) => {
   const windowSize = useWindowSize()
 
-  let items: ListItem[]
+  const [maxHeight, setMaxHeight] = useState<number>(windowSize.height)
 
-  if (filteredProducts !== undefined) {
-    items = filteredProducts.map(p => p.toItem())
-  }
-  else if (categories !== undefined) {
-    items = categories.flatMap(c => {
-      const items = c.products.map(p => p.toItem())
+  useEffect(() => { if (windowSize.height > maxHeight) setMaxHeight(windowSize.height) }, [windowSize.height])
 
-      return c.present() ? ([c.toItem()]).concat(items) : items
-    })
-  }
-  else {
-    return null
-  }
+  const items = useMemo(() => {
+    if (filteredProducts !== undefined) {
+      return filteredProducts.map(p => p.toItem())
+    }
+    else if (categories !== undefined) {
+      return categories.flatMap(c => {
+        const items = c.products.map(p => p.toItem())
+
+        return c.present() ? ([c.toItem()]).concat(items) : items
+      })
+    }
+    else {
+      return []
+    }
+  }, [categories, filteredProducts])
 
   return (
     <Segment basic attached className='products'>
-      <AutoSizer>{({ width, height }) =>
-        <FixedSizeList
-          width={width}
-          height={height - 14}
-          itemCount={items.length}
-          itemSize={
-            (isLoggedIn && windowSize.width <= 600)
-             || windowSize.width <= 340
-              ? 84
-              : windowSize.width <= 425
-                ? 71
-                : windowSize.width <= 1024 ? 52 : 35
-          }
-          itemKey={index => items[index].value.key}
-          overscanCount={5}
-          className='products-border'
-        >
-          {memo(({ index, style }) => {
-            const item = items[index]
-
-            return item.type === 'category'
-              ? <CategoryRow style={style} category={item.value} />
-              : <ProductRow style={style} isLoggedIn={isLoggedIn} product={item.value} />
-          }, areEqual)}
-        </FixedSizeList>
-      }</AutoSizer>
+      <MemoisedList height={maxHeight - 155 - 14} windowWidth={windowSize.width} items={items} isLoggedIn={isLoggedIn} />
     </Segment>
   )
 }
