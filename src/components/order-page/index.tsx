@@ -71,11 +71,13 @@ const OrderPage = ({ items, resetOrder }: StateProps & DispatchProps) => {
 
         <div>Замовлення</div>
       </div>
-
-      {items.map(({ product }) => <ProductRow key={product.id} product={product} isLoggedIn />)}
     </Segment>
 
-    <Segment basic attached>
+    <Segment basic attached className='order-products'>
+      <div>{items.map(({ product }) => <ProductRow key={product.id} product={product} isLoggedIn />)}</div>
+    </Segment>
+
+    <Segment basic attached className='order-buttons'>
       <Button.Group fluid>
         <Button basic negative icon='arrow left' content='Назад' as={(props: any) => <Link to='/' {...props} />} />
 
