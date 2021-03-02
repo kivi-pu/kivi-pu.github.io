@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/node": "^14.14.28",
+    "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
     "@types/react-redux": "^7.1.16",
-    "@types/react-router": "^5.1.11",
+    "@types/react-router": "^5.1.12",
     "@types/react-router-dom": "^5.1.7",
     "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/react-window": "^1.8.2",
-    "firebase": "^8.2.7",
+    "firebase": "^8.2.9",
     "fomantic-ui-css": "^2.8.7",
     "fuse.js": "^6.4.6",
     "react": "^17.0.1",
@@ -25,7 +25,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "semantic-ui-react": "^2.0.3",
-    "typescript": "^4.1.5"
+    "typescript": "^4.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
