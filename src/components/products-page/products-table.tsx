@@ -74,7 +74,12 @@ const ProductsTable = ({ isLoggedIn, categories, filteredProducts }: ProductsTab
 
   return (
     <Segment basic attached className='products'>
-      <MemoisedList height={maxHeight - 155 - 14} windowWidth={windowSize.width} items={items} isLoggedIn={isLoggedIn} />
+      <MemoisedList
+        height={maxHeight - (isLoggedIn ? 155 : 115) - 14}
+        windowWidth={windowSize.width}
+        items={items}
+        isLoggedIn={isLoggedIn}
+      />
     </Segment>
   )
 }
