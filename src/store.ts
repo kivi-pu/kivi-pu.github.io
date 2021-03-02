@@ -16,7 +16,7 @@ export interface UpdateOrderAction extends Action<typeof UPDATE_ORDER> {
 
 export const RESET_ORDER = 'RESET_ORDER'
 
-export interface ResetOrderAction extends Action<typeof RESET_ORDER> {}
+export interface ResetOrderAction extends Action<typeof RESET_ORDER> { }
 
 export const SET_DATA = 'SET_DATA'
 
@@ -60,4 +60,23 @@ const reducer = (state = initialState, action: AppAction) => {
   }
 }
 
-export default createStore(reducer, devToolsEnhancer({}))
+const loadState = (): AppState | undefined => {
+  try {
+    const serializedOrder = localStorage.getItem('order')
+
+    return serializedOrder ? { order: JSON.parse(serializedOrder) as Order } : undefined
+  } catch {
+    return undefined
+  }
+}
+
+const store = createStore(reducer, loadState(), devToolsEnhancer({}))
+
+store.subscribe(() => {
+  try {
+    localStorage.setItem('order', JSON.stringify(store.getState().order))
+  } catch {
+  }
+})
+
+export default store
