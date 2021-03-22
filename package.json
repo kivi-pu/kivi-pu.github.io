@@ -41,8 +41,10 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "IE 6"
+      "chrome >= 49",
+      "opera >= 36",
+      "firefox >= 52",
+      "IE >= 9"
     ],
     "development": [
       "last 1 chrome version",
