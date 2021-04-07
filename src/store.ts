@@ -22,6 +22,7 @@ export const SET_DATA = 'SET_DATA'
 
 export interface SetDataAction extends Action<typeof SET_DATA> {
   products: Product[]
+  updatedAt: Date
 }
 
 type AppAction = UpdateOrderAction | ResetOrderAction | SetDataAction
@@ -30,13 +31,14 @@ export interface AppState {
   order: Order
   fuse?: Fuse<Product>
   categories?: Category[]
+  updatedAt?: Date
 }
 
 const initialState: AppState = {
   order: {},
 }
 
-const reducer = (state = initialState, action: AppAction) => {
+const reducer = (state = initialState, action: AppAction) : AppState => {
   switch (action.type) {
     case UPDATE_ORDER:
       const { product, amount } = action as UpdateOrderAction
@@ -53,7 +55,7 @@ const reducer = (state = initialState, action: AppAction) => {
         .sort(([a], [b]) => a.localeCompare(b))
         .map(([name, products]) => new Category(name, products))
 
-      return { ...state, fuse, categories }
+      return { ...state, fuse, categories, updatedAt: action.updatedAt }
 
     default:
       return state

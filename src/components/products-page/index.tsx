@@ -22,23 +22,32 @@ async function load(): Promise<Product[]> {
   return Array.from(document.getElementsByTagName('product')).map(e => new Product(e))
 }
 
+async function getUpdatedAt(): Promise<Date> {
+  const response = await fetch('https://api.github.com/repos/kivi-pu/products/commits?per_page=1')
+
+  const json = await response.json()
+
+  return new Date(json[0].commit.author.date)
+}
+
 interface StateProps {
   order: Order
   fuse?: Fuse<Product>
   categories?: Category[]
+  updatedAt?: Date
 }
 
 interface DispatchProps {
-  setData: (products: Product[]) => SetDataAction
+  setData: (products: Product[], updatedAt: Date) => SetDataAction
 }
 
 const mapState: MapStateToProps<StateProps, object, AppState> = state => state
 
 const mapDispatch: MapDispatchToPropsFunction<DispatchProps, object> = dispatch => ({
-  setData: products => dispatch({ type: SET_DATA, products })
+  setData: (products, updatedAt) => dispatch({ type: SET_DATA, products, updatedAt })
 })
 
-const ProductsPage = ({ order, fuse, categories, setData }: StateProps & DispatchProps) => {
+const ProductsPage = ({ order, fuse, categories, updatedAt, setData }: StateProps & DispatchProps) => {
   const [user, isFirebaseLoading] = useAuthState(auth)
 
   const [isDataLoading, setIsDataLoading] = useState(false)
@@ -46,10 +55,11 @@ const ProductsPage = ({ order, fuse, categories, setData }: StateProps & Dispatc
   const [filteredProducts, runQuery] = useSearch<Product>(fuse)
 
   useEffect(() => {
-    if (!categories || !fuse) {
+    if (!categories || !fuse || !updatedAt) {
       setIsDataLoading(true)
 
-      load().then(products => { setData(products); setIsDataLoading(false) })
+      Promise.all([load(), getUpdatedAt()])
+        .then(([products, updatedAt]) => { setData(products, updatedAt); setIsDataLoading(false) })
     }
     // warning on setter functions missing from deps, that should be safe
     // eslint-disable-next-line
@@ -66,6 +76,10 @@ const ProductsPage = ({ order, fuse, categories, setData }: StateProps & Dispatc
     </Segment>
 
     <Segment basic attached>
+      {updatedAt && <div className='updated-at-notice'>
+        Оновлено {updatedAt.toLocaleDateString()} о {updatedAt.toLocaleTimeString()}
+      </div>}
+
       <div className='list-header'>
         <div>Назва</div>
 
